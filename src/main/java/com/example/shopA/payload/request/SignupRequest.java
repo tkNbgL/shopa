@@ -6,7 +6,7 @@ public class SignupRequest {
     @NonNull
     private String shopname;
     @NonNull
-    private String email;
+    private String mail;
     @NonNull
     private String password;
 
@@ -18,12 +18,12 @@ public class SignupRequest {
         this.shopname = shopname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(@NonNull String email) {
-        this.email = email;
+    public void setMail(@NonNull String email) {
+        this.mail = email;
     }
 
     public String getPassword() {

@@ -4,16 +4,16 @@ import org.springframework.lang.NonNull;
 
 public class LoginRequest {
     @NonNull
-    private String shopname;
+    private String mailAddress;
     @NonNull
     private String password;
 
-    public String getShopname() {
-        return shopname;
+    public String getMailAddress() {
+        return mailAddress;
     }
 
-    public void setShopname(@NonNull String shopname) {
-        this.shopname = shopname;
+    public void setMailAddress(String mailAddress) {
+        this.mailAddress = mailAddress;
     }
 
     public String getPassword() {

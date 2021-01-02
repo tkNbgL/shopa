@@ -12,15 +12,14 @@ public class User {
     private String shopName;
     @NonNull
     private String mailAddress;
-    @NonNull
-    private String password;
+
 
     public User() { }
 
-    public User(String shopName, String mailAddress, String password) {
+    public User(String id,String shopName, String mailAddress) {
+        this.id = id;
         this.shopName = shopName;
         this.mailAddress = mailAddress;
-        this.password = password;
     }
 
     public String getId() {
@@ -45,13 +44,5 @@ public class User {
 
     public void setMailAddress(String mailAddress) {
         this.mailAddress = mailAddress;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

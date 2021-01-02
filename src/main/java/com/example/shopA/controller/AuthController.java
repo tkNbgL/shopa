@@ -1,10 +1,13 @@
 package com.example.shopA.controller;
 
+import com.example.shopA.model.Credentials;
 import com.example.shopA.model.User;
 import com.example.shopA.payload.request.LoginRequest;
 import com.example.shopA.payload.request.SignupRequest;
+import com.example.shopA.payload.response.BaseResponse;
 import com.example.shopA.payload.response.JwtResponse;
 import com.example.shopA.payload.response.MessageResponse;
+import com.example.shopA.repository.CredentialRepository;
 import com.example.shopA.repository.UserRepository;
 import com.example.shopA.service.UserDetailsImpl;
 import com.example.shopA.utils.JwtUtils;
@@ -29,6 +32,8 @@ public class AuthController {
     @Autowired
     UserRepository userRepository;
     @Autowired
+    CredentialRepository credentialRepository;
+    @Autowired
     JwtUtils jwtUtils;
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -40,7 +45,7 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) throws ParseException {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getShopname(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getMailAddress(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -62,17 +67,20 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: This shop name is already taken"));
         }
-        Optional<User> byMailAddress = userRepository.findByMailAddress(signupRequest.getEmail());
+        Optional<User> byMailAddress = userRepository.findByMailAddress(signupRequest.getMail());
         if (byMailAddress.isPresent()) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: This email is already taken"));
         }
+        Credentials credentials = new Credentials(signupRequest.getMail(), passwordEncoder.encode(signupRequest.getPassword()));
+        Credentials newCredentials = credentialRepository.save(credentials);
 
-        User user = new User(signupRequest.getShopname(), signupRequest.getEmail()
-                , passwordEncoder.encode(signupRequest.getPassword()));
+        if (newCredentials != null) {
+            User user = new User(newCredentials.getId(), signupRequest.getShopname(), signupRequest.getMail());
 
-        userRepository.save(user);
+            userRepository.save(user);
+        }
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully"));
     }

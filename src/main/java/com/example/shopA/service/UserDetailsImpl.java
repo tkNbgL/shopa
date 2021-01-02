@@ -1,6 +1,6 @@
 package com.example.shopA.service;
 
-import com.example.shopA.model.User;
+import com.example.shopA.model.Credentials;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,24 +12,21 @@ public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private String id;
-    private String shopName;
     private String email;
     @JsonIgnore
     private String password;
 
-    public UserDetailsImpl(String id, String shopName, String email, String password) {
+    public UserDetailsImpl(String id, String email, String password) {
         this.id = id;
-        this.shopName = shopName;
         this.email = email;
         this.password = password;
     }
 
-    public static UserDetailsImpl build(User user) {
+    public static UserDetailsImpl build(Credentials credentials) {
         return new UserDetailsImpl(
-                user.getId(),
-                user.getShopName(),
-                user.getMailAddress(),
-                user.getPassword()
+                credentials.getId(),
+                credentials.getMailAddress(),
+                credentials.getPassword()
         );
     }
 
@@ -53,7 +50,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return shopName;
+        return email;
     }
 
     @Override
