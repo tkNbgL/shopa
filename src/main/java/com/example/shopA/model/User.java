@@ -1,6 +1,6 @@
 package com.example.shopA.model;
 
-import com.sun.istack.internal.NotNull;
+import com.mongodb.lang.NonNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,18 +8,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     @Id
     private String id;
-    @NotNull
+    @NonNull
     private String shopName;
-    @NotNull
-    private String email;
-    @NotNull
+    @NonNull
+    private String mailAddress;
+    @NonNull
     private String password;
 
     public User() { }
 
-    public User(String shopName, String email, String password) {
+    public User(String shopName, String mailAddress, String password) {
         this.shopName = shopName;
-        this.email = email;
+        this.mailAddress = mailAddress;
         this.password = password;
     }
 
@@ -39,12 +39,12 @@ public class User {
         this.shopName = shopName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMailAddress() {
+        return mailAddress;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMailAddress(String mailAddress) {
+        this.mailAddress = mailAddress;
     }
 
     public String getPassword() {

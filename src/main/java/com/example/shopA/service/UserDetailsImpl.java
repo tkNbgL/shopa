@@ -28,7 +28,7 @@ public class UserDetailsImpl implements UserDetails {
         return new UserDetailsImpl(
                 user.getId(),
                 user.getShopName(),
-                user.getEmail(),
+                user.getMailAddress(),
                 user.getPassword()
         );
     }
