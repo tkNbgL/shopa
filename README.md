@@ -1,5 +1,5 @@
 # shopa
-
+```
 POST /api/auth/signup
 {
     "shopname" : "example",
@@ -18,3 +18,4 @@ GET /api/addons/{shopId}
 GET /api/shop/{shopId}
 POST /api/addons/{shopId}/{addonId}
 DELETE /api/shutdown/{shopId}
+```
