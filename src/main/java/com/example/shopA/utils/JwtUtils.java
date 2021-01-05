@@ -1,6 +1,6 @@
 package com.example.shopA.utils;
 
-import com.example.shopA.service.UserDetailsImpl;
+import com.example.shopA.service.Impls.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.time.ZonedDateTime;
 import java.util.Date;

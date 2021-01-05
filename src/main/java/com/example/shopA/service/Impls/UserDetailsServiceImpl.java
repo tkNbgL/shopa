@@ -1,9 +1,8 @@
-package com.example.shopA.service;
+package com.example.shopA.service.Impls;
 
 import com.example.shopA.model.Credentials;
-import com.example.shopA.model.User;
 import com.example.shopA.repository.CredentialRepository;
-import com.example.shopA.repository.UserRepository;
+import com.example.shopA.service.Impls.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

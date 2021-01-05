@@ -1,4 +1,4 @@
-package com.example.shopA.service;
+package com.example.shopA.service.Impls;
 
 import com.example.shopA.model.Credentials;
 import com.fasterxml.jackson.annotation.JsonIgnore;
