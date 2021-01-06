@@ -31,7 +31,7 @@ public class SuccessResponse <T>{
         this.transactionDate = successResponseBuilder.transactionDate;
     }
 
-    public static class SuccessResponseBuilder <T>{
+    public static class SuccessResponseBuilder <T> {
         private String statusCode;
         private T data;
         private String message;
