@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "8113880e-8d6d-46cd-829e-09f3ea8bea85",
+		"name": "shopA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZWRlIiwiaWF0IjoxNjA5NTg2NDQyLCJleHAiOjY3OTM1ODY0NDJ9.R5PGs5KptqmCismLHCbuYxI5RUAxf8iO6ssEA5AHnzxREeKylhTsUKX2puAGQX3IJ5BwnvTgY-hbqKkQcCFeFw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"shopname\" : \"dukkanutku\",\n    \"mail\" : \"utku@gmail.com\",\n    \"password\" : \"123123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/signin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1dGt1QGdtYWlsLmNvbSIsImlhdCI6MTYwOTg2MzIzNSwiZXhwIjo2NzkzODYzMjM1fQ.QLy6bs-fB8slqYkXpelRrB-paybHoESGGB1ewu-Cs2wMqESiDAqAHu0jhmCQmLk9vV8qeZvhSbPu9QUYuOV6iw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mailAddress\" : \"utku@gmail.com\",\n    \"password\" : \"123123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/addons",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1dGt1QGdtYWlsLmNvbSIsImlhdCI6MTYwOTg2MzIzNSwiZXhwIjo2NzkzODYzMjM1fQ.QLy6bs-fB8slqYkXpelRrB-paybHoESGGB1ewu-Cs2wMqESiDAqAHu0jhmCQmLk9vV8qeZvhSbPu9QUYuOV6iw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/addons/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"addons",
+						""
+					]
+				},
+				"description": "returns all available addons."
+			},
+			"response": []
+		},
+		{
+			"name": "/api/addons/{shopId}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1dGt1QGdtYWlsLmNvbSIsImlhdCI6MTYwOTg2MzIzNSwiZXhwIjo2NzkzODYzMjM1fQ.QLy6bs-fB8slqYkXpelRrB-paybHoESGGB1ewu-Cs2wMqESiDAqAHu0jhmCQmLk9vV8qeZvhSbPu9QUYuOV6iw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/addons/5ff4902015e7a678e4220b3c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"addons",
+						"5ff4902015e7a678e4220b3c"
+					]
+				},
+				"description": "return active add ons"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/shop/{shopId}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1dGt1QGdtYWlsLmNvbSIsImlhdCI6MTYwOTg2MzIzNSwiZXhwIjo2NzkzODYzMjM1fQ.QLy6bs-fB8slqYkXpelRrB-paybHoESGGB1ewu-Cs2wMqESiDAqAHu0jhmCQmLk9vV8qeZvhSbPu9QUYuOV6iw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/shop/5ff4902015e7a678e4220b3c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shop",
+						"5ff4902015e7a678e4220b3c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/addons/{shopId}/{addonId}",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1dGt1QGdtYWlsLmNvbSIsImlhdCI6MTYwOTg2MzIzNSwiZXhwIjo2NzkzODYzMjM1fQ.QLy6bs-fB8slqYkXpelRrB-paybHoESGGB1ewu-Cs2wMqESiDAqAHu0jhmCQmLk9vV8qeZvhSbPu9QUYuOV6iw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/addons/5ff4902015e7a678e4220b3c/5ff0a909c14fe7683b6995e3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"addons",
+						"5ff4902015e7a678e4220b3c",
+						"5ff0a909c14fe7683b6995e3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/shutdown/{shopId}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1dGt1QGdtYWlsLmNvbSIsImlhdCI6MTYwOTg2MzIzNSwiZXhwIjo2NzkzODYzMjM1fQ.QLy6bs-fB8slqYkXpelRrB-paybHoESGGB1ewu-Cs2wMqESiDAqAHu0jhmCQmLk9vV8qeZvhSbPu9QUYuOV6iw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/shutdown/5ff4902015e7a678e4220b3c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shutdown",
+						"5ff4902015e7a678e4220b3c"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
