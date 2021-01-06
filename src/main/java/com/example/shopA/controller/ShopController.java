@@ -1,5 +1,6 @@
 package com.example.shopA.controller;
 
+import com.example.shopA.payload.response.ErrorResponse;
 import com.example.shopA.payload.response.SuccessResponse;
 import com.example.shopA.service.ServiceResult;
 import com.example.shopA.model.Shop;
@@ -26,9 +27,8 @@ public class ShopController {
         ServiceResult<Shop> shop = shopService.getShopById(shopId);
 
         if (shop.getCode() != 0) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: no shop found"));
+            return ResponseEntity.badRequest().body((new ErrorResponse.ErrorResponseBuilder("404")
+                    .setMessage(shop.getMessage()).setTransactionDate(new Date()).build()));
         }
 
         return ResponseEntity.ok(new SuccessResponse

@@ -1,10 +1,10 @@
 package com.example.shopA.controller;
 
 import com.example.shopA.model.AddOns;
+import com.example.shopA.payload.response.ErrorResponse;
 import com.example.shopA.payload.response.SuccessResponse;
 import com.example.shopA.service.ServiceResult;
 import com.example.shopA.model.Shop;
-import com.example.shopA.payload.response.MessageResponse;
 import com.example.shopA.service.AddOnService;
 import com.example.shopA.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +27,8 @@ public class AddOnController {
         ServiceResult<List<AddOns>> allAddons = addOnService.getAllAddOns();
 
         if (allAddons.getCode() != 0) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: no addon found"));
+            return ResponseEntity.badRequest().body(new ErrorResponse.ErrorResponseBuilder("404")
+                    .setMessage(allAddons.getMessage()).setTransactionDate(new Date()).build());
         }
 
         return ResponseEntity.ok(new SuccessResponse
@@ -42,9 +41,8 @@ public class AddOnController {
         ServiceResult<Shop> shop = shopService.getShopById(shopId);
 
         if (shop.getCode() != 0) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: no shop found"));
+            return ResponseEntity.badRequest().body(new ErrorResponse.ErrorResponseBuilder("404")
+                    .setMessage(shop.getMessage()).setTransactionDate(new Date()).build());
         }
 
         return ResponseEntity.ok(new SuccessResponse
@@ -57,27 +55,24 @@ public class AddOnController {
         ServiceResult<Shop> shop = shopService.getShopById(shopId);
 
         if (shop.getCode() != 0) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: no shop found"));
+            return ResponseEntity.badRequest().body(new ErrorResponse.ErrorResponseBuilder("404")
+                    .setMessage(shop.getMessage()).setTransactionDate(new Date()).build());
         }
 
         ServiceResult<AddOns> addOns = addOnService.getAddOnById(addonId);
 
         if (addOns.getCode() != 0) {
-            //TODO error json at
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: no addon found"));
+            return ResponseEntity.badRequest().body(new ErrorResponse.ErrorResponseBuilder("404")
+                    .setMessage(addOns.getMessage()).setTransactionDate(new Date()).build());
         }
 
         List<AddOns> subscribedAddons = shop.getResult().getSubscribedAddons();
 
         if (subscribedAddons.stream().anyMatch(i -> addOns.getResult().getId().equals(i.getId()))) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: addon already activated"));
+            return ResponseEntity.badRequest().body(new ErrorResponse.ErrorResponseBuilder("409")
+                    .setMessage("Error: addon already activated").setTransactionDate(new Date()).build());
         }
+
         AddOns activatedAddon = addOns.getResult();
         shop.getResult().addAddOnToList(activatedAddon);
 
