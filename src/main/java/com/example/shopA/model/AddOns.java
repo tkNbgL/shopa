@@ -13,6 +13,11 @@ public class AddOns {
 
     }
 
+    public AddOns(String id, String addonName) {
+        this.id = id;
+        this.addonName = addonName;
+    }
+
     public AddOns(String addonName) {
         this.addonName = addonName;
     }

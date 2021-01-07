@@ -60,7 +60,7 @@ public class AuthController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
+        //TODO success response ile degistir
         return ResponseEntity.ok(new JwtResponse(jwt,
                                                 userDetails.getId(),
                                                 userDetails.getUsername(),
@@ -69,7 +69,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
-        //TODO change with exist queries later
+        //TODO change with queries later
         Optional<User> byShopName = userRepository.findByShopName(signupRequest.getShopname());
         if (byShopName.isPresent()) {
             return ResponseEntity
