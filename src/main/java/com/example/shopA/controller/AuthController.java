@@ -6,8 +6,10 @@ import com.example.shopA.model.Shop;
 import com.example.shopA.model.User;
 import com.example.shopA.payload.request.LoginRequest;
 import com.example.shopA.payload.request.SignupRequest;
+import com.example.shopA.payload.response.ErrorResponse;
 import com.example.shopA.payload.response.JwtResponse;
 import com.example.shopA.payload.response.MessageResponse;
+import com.example.shopA.payload.response.SuccessResponse;
 import com.example.shopA.repository.AddOnsRepository;
 import com.example.shopA.repository.CredentialRepository;
 import com.example.shopA.repository.ShopRepository;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,34 +63,32 @@ public class AuthController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        //TODO success response ile degistir
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                                                userDetails.getId(),
-                                                userDetails.getUsername(),
-                                                userDetails.getEmail()));
+        JwtResponse jwtResponse = new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),userDetails.getEmail());
+
+        return ResponseEntity.ok(new SuccessResponse
+                .SuccessResponseBuilder<JwtResponse>(jwtResponse, "authenticated")
+                .setStatusCode("200").setTransactionDate(new Date()).build());
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
-        //TODO change with queries later
         Optional<User> byShopName = userRepository.findByShopName(signupRequest.getShopname());
         if (byShopName.isPresent()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: This shop name is already taken"));
+            return ResponseEntity.badRequest().body(new ErrorResponse.ErrorResponseBuilder("409")
+                        .setMessage("Error: This shop name is already taken").setTransactionDate(new Date()).build());
         }
         Optional<User> byMailAddress = userRepository.findByMailAddress(signupRequest.getMail());
         if (byMailAddress.isPresent()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: This email is already taken"));
+            return ResponseEntity.badRequest().body(new ErrorResponse.ErrorResponseBuilder("409")
+                        .setMessage("Error: This email is already taken").setTransactionDate(new Date()).build());
         }
         Credentials credentials = new Credentials(signupRequest.getMail(), passwordEncoder.encode(signupRequest.getPassword()));
         Credentials newCredentials = credentialRepository.save(credentials);
 
         setDefaultShopFeatures(signupRequest, newCredentials.getId());
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+        return ResponseEntity.ok(new SuccessResponse
+                .SuccessResponseBuilder<Boolean>(true, "User registered successfully")
+                .setStatusCode("201").setTransactionDate(new Date()).build());
     }
 
     private void setDefaultShopFeatures(SignupRequest signupRequest, String id) {
